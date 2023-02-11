@@ -11,7 +11,9 @@ export type ViaCEPAddress = {
   uf: string,
 
 };
-
+export type postBookingtype = {
+  roomId:number
+}
 //Regra de Negócio
 export type AddressEnrollment = {
   logradouro: string,
