@@ -1,7 +1,7 @@
-import { AuthenticatedRequest } from '@/middlewares';
-import bookingService from '@/services/booking-service';
-import { Request, Response } from 'express';
-import httpStatus from 'http-status';
+import { AuthenticatedRequest } from "@/middlewares";
+import bookingService from "@/services/booking-service";
+import { Request, Response } from "express";
+import httpStatus from "http-status";
 
 export async function getBooking(req: AuthenticatedRequest, res: Response) {
   const { userId } = req;
@@ -13,13 +13,13 @@ export async function getBooking(req: AuthenticatedRequest, res: Response) {
   }
 }
 
-export async function postBooking(req: AuthenticatedRequest, res: Response){
+export async function postBooking(req: AuthenticatedRequest, res: Response) {
   const { userId } = req;
-const {roomId} = req.body;
+  const { roomId } = req.body;
 
   try {
-     await bookingService.postBookingService(roomId,userId)
-    return res.sendStatus(httpStatus.OK) 
+    await bookingService.postBookingService(roomId, userId);
+    return res.sendStatus(httpStatus.OK);
   } catch (error) {
     if (error.name === "NotFoundError") {
       return res.sendStatus(httpStatus.NOT_FOUND);
@@ -29,16 +29,15 @@ const {roomId} = req.body;
     }
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
- 
 }
 
-export async function updateBooking(req: AuthenticatedRequest, res: Response){
+export async function updateBooking(req: AuthenticatedRequest, res: Response) {
   const { userId } = req;
-const {roomId} = req.body;
-const {bookingId} = req.params;
+  const { roomId } = req.body;
+  const { bookingId } = req.params;
   try {
-     await bookingService.updateBookingService(Number(roomId),userId,Number(bookingId))
-    return res.sendStatus(httpStatus.OK) 
+    await bookingService.updateBookingService(Number(roomId), userId, Number(bookingId));
+    return res.sendStatus(httpStatus.OK);
   } catch (error) {
     if (error.name === "NotFoundError") {
       return res.sendStatus(httpStatus.NOT_FOUND);
@@ -48,5 +47,4 @@ const {bookingId} = req.params;
     }
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
- 
 }
